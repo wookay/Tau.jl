@@ -11,3 +11,6 @@ using Base.Test
 @test 360 == rad2deg(τ)
 @test 360/τ == rad2deg(1)
 @test τ/360 == deg2rad(1)
+@test 1/2φ ≈ cos(τ/5)
+@test √(2+φ)/2 == sin(τ/5)
+@test inv(φ-1) ≈ φ
