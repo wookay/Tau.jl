@@ -1,16 +1,19 @@
-using Tau
 using Base.Test
 
-@test 2pi == tau
-@test 2π == τ
-@test isa(tau, Irrational{:τ})
-@test 1.0 == cos(τ)
-@test 2acos(-log(e)) == τ
-@test real(4acos(log(im))) == τ
-@test imag(4log(im)) == τ
-@test 360 == rad2deg(τ)
-@test 360/τ == rad2deg(1)
-@test τ/360 == deg2rad(1)
-@test 1/2φ ≈ cos(τ/5)
-@test √(2+φ)/2 == sin(τ/5)
-@test inv(φ-1) ≈ φ
+all_tests = []
+for (root, dirs, files) in walkdir(".")
+    for filename in files
+        !endswith(filename, ".jl") && continue
+        "runtests.jl" == filename && continue
+        filepath = joinpath(root, filename)[3:end]
+        !isempty(ARGS) && !any(x->startswith(filepath, x), ARGS) && continue
+        push!(all_tests, filepath)
+    end
+end
+
+for (idx, filepath) in enumerate(all_tests)
+    numbering = string(idx, /, length(all_tests))
+    ts = @testset "$numbering $filepath" begin
+        include(filepath)
+    end
+end
