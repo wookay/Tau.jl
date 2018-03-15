@@ -1,13 +1,25 @@
-__precompile__()
+__precompile__(true)
 
 module Tau
 
 export tau, τ
 
-const τ = Irrational{:τ}()
-Base.convert(::Type{BigFloat}, ::Irrational{:τ}) = BigFloat(2pi)
-Base.convert(::Type{Float64}, ::Irrational{:τ}) = 2pi
-Base.convert(::Type{Float32}, ::Irrational{:τ}) = Float32(2pi)
+# julia/base/irrationals.jl
+macro irrational_tau(sym, def)
+    esym = esc(sym)
+    qsym = esc(Expr(:quote, sym))
+    quote
+        const $esym = Irrational{$qsym}()
+        Base.BigFloat(::Irrational{$qsym}) = big(2pi)
+        Base.Float64(::Irrational{$qsym}) = 2pi
+        Base.Float32(::Irrational{$qsym}) = Float32(2pi)
+        @assert isa(big($esym), BigFloat)
+        @assert Float64($esym) == Float64(big($esym))
+        @assert Float32($esym) == Float32(big($esym))
+    end
+end
+
+@irrational_tau τ tau
 
 """
     tau
@@ -17,12 +29,9 @@ The constant τ.
 
 ```jldoctest
 julia> tau
-τ = 6.283185307179586...
+τ = 6.283185307179585...
 ```
 """
-const tau = τ
-
-Base.:(==)(::Irrational{:τ}, y::Float64) = 2pi == y
-Base.:(==)(x::Float64, ::Irrational{:τ}) = x == 2pi
+τ, const tau = τ
 
 end # module

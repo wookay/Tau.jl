@@ -1,4 +1,4 @@
-using Base.Test
+using Test
 
 all_tests = []
 for (root, dirs, files) in walkdir(".")

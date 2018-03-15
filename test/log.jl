@@ -1,4 +1,4 @@
-using Base.Test
+using Test
 using Tau
 
 @test abs(log(complex(-1))) ≈ τ/2 ≈ pi
