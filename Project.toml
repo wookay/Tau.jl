@@ -1,0 +1,10 @@
+name = "Tau"
+uuid = "c544e3c2-d3e5-5802-ac44-44683f340e4a"
+authors = ["WooKyoung Noh <wookay.noh@gmail.com>"]
+version = "0.1.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
