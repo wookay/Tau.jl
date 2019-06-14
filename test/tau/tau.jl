@@ -1,3 +1,5 @@
+module test_tau_tau
+
 using Test
 using Tau
 using Base.MathConstants: φ
@@ -17,3 +19,5 @@ using Base.MathConstants: φ
 @test √(2+φ)/2 == sin(τ/5)
 @test inv(φ-1) ≈ φ
 @test 8atan(1) ≈ τ
+
+end # module test_tau_tau
