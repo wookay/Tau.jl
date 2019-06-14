@@ -16,3 +16,4 @@ using Base.MathConstants: φ
 @test 1/2φ ≈ cos(τ/5)
 @test √(2+φ)/2 == sin(τ/5)
 @test inv(φ-1) ≈ φ
+@test 8atan(1) ≈ τ
